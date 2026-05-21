@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feliz Cumpleaños Yajaira 🎂</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:        #1565c0;
+      --blue-light:  #5e92d4;
+      --blue-mid:    #1e88e5;
+      --blue-deep:   #0d3d91;
+      --blue-pale:   #e3f0fd;
+      --blue-sky:    #90caf9;
+      --gold:        #f5c842;
+      --paper:       #f8fbff;
+      --ink:         #0d1f3c;
+      --ink-light:   #2a4a7a;
+      --shadow:      rgba(20, 70, 160, 0.22);
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 15% 10%, #ddeeff 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 88%, #c5dff8 0%, transparent 55%),
+        linear-gradient(150deg, #dbeeff 0%, #c8e0f8 40%, #e8f4ff 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      overflow-x: hidden;
+      padding: 30px 16px 50px;
+    }
+
+    /* ── CONFETTI / STARS FALLING ── */
+    .confetti-container { position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
+    .confetti-piece { position:absolute; top:-40px; animation:confettiFall linear infinite; }
+    @keyframes confettiFall {
+      0%   { transform:translateY(-40px) rotate(0deg) translateX(0); opacity:.9; }
+      40%  { transform:translateY(40vh) rotate(180deg) translateX(20px); opacity:.7; }
+      100% { transform:translateY(110vh) rotate(360deg) translateX(-10px); opacity:0; }
+    }
+
+    /* ── TITLE ── */
+    .title-wrap {
+      position:relative; z-index:2;
+      text-align:center; margin-bottom:10px;
+      animation:fadeDown .9s ease both;
+    }
+    @keyframes fadeDown { from{opacity:0;transform:translateY(-26px);} to{opacity:1;transform:none;} }
+
+    .title-wrap h1 {
+      font-family:'Great Vibes', cursive;
+      font-size:clamp(2.8rem, 8vw, 5.8rem);
+      color:var(--blue);
+      text-shadow:2px 4px 20px var(--shadow), 0 0 50px rgba(30,136,229,.2);
+      line-height:1.05;
+    }
+    .title-name {
+      font-family:'Great Vibes', cursive;
+      font-size:clamp(3.2rem, 10vw, 7rem);
+      color:var(--blue-mid);
+      text-shadow:3px 5px 24px var(--shadow), 0 0 60px rgba(30,136,229,.25);
+      line-height:1;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%,100%{ text-shadow:3px 5px 24px var(--shadow), 0 0 60px rgba(30,136,229,.25); }
+      50%    { text-shadow:3px 5px 24px var(--shadow), 0 0 80px rgba(30,136,229,.5), 0 0 120px rgba(144,202,249,.3); }
+    }
+    .title-sub {
+      color:var(--blue-light);
+      font-size:clamp(.78rem, 2vw, .95rem);
+      letter-spacing:.3em;
+      font-weight:300; margin-top:8px;
+      text-transform:uppercase;
+    }
+
+    /* Balloons decoration */
+    .balloons {
+      font-size:clamp(2rem, 6vw, 3.2rem);
+      margin:10px 0 24px;
+      animation:floatBalloon 3s ease-in-out infinite;
+      letter-spacing:.2em;
+    }
+    @keyframes floatBalloon { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+
+    /* ── SCENE ── */
+    .scene {
+      perspective:1400px;
+      position:relative; z-index:2;
+      width:min(520px, 94vw);
+    }
+
+    /* ── ENVELOPE (birthday gift box style) ── */
+    .envelope-wrap {
+      position:relative; width:100%;
+      cursor:pointer;
+      animation:envPop .8s .3s cubic-bezier(.34,1.4,.64,1) both;
+    }
+    @keyframes envPop { from{opacity:0;transform:scale(.85) translateY(20px);} to{opacity:1;transform:none;} }
+
+    .envelope-svg { width:100%; display:block; filter:drop-shadow(0 18px 40px rgba(20,70,160,.3)); }
+
+    .envelope-wrap:not(.opened):hover .envelope-svg { animation:wiggle .5s ease; }
+    @keyframes wiggle {
+      0%,100%{transform:rotate(0);}
+      25%{transform:rotate(-1.5deg);}
+      75%{transform:rotate(1.5deg);}
+    }
+
+    .tap-hint {
+      text-align:center;
+      color:var(--blue);
+      font-size:clamp(.78rem,2.2vw,.9rem);
+      letter-spacing:.08em;
+      margin-top:14px;
+      animation:pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+
+    /* ── LETTER ── */
+    .letter {
+      display:none;
+      position:relative; width:98%; margin:0 auto;
+      background:var(--paper);
+      border-radius:4px;
+      box-shadow:0 28px 70px var(--shadow), 0 8px 24px rgba(0,0,0,.08);
+      animation:letterRise .8s cubic-bezier(.34,1.28,.64,1) both;
+      overflow:hidden;
+    }
+    @keyframes letterRise { from{opacity:0;transform:translateY(30px) scale(.96);} to{opacity:1;transform:none;} }
+
+    /* Lined paper */
+    .letter::before {
+      content:''; position:absolute; inset:0;
+      background-image:repeating-linear-gradient(transparent,transparent 31px,rgba(30,136,229,.07) 31px,rgba(30,136,229,.07) 32px);
+      background-position:0 66px;
+      pointer-events:none; z-index:0;
+    }
+    /* Margin line */
+    .letter::after {
+      content:''; position:absolute;
+      top:0; bottom:0; left:56px;
+      width:1.5px; background:rgba(30,136,229,.13);
+      pointer-events:none; z-index:0;
+    }
+
+    .letter-inner { position:relative; z-index:1; padding:38px 38px 34px 70px; }
+
+    .letter-watermark {
+      position:absolute; bottom:14px; right:16px;
+      font-size:8rem; opacity:.04;
+      pointer-events:none; line-height:1; z-index:0;
+    }
+
+    /* Header */
+    .letter-header {
+      display:flex; justify-content:space-between; align-items:flex-start;
+      margin-bottom:22px; padding-bottom:14px;
+      border-bottom:1px solid rgba(30,136,229,.13);
+    }
+    .letter-from { font-size:clamp(.72rem,1.8vw,.82rem); color:var(--ink-light); line-height:1.7; font-style:italic; }
+    .letter-date { font-size:clamp(.72rem,1.8vw,.82rem); color:var(--ink-light); font-style:italic; white-space:nowrap; }
+
+    /* Salutation */
+    .salutation {
+      font-family:'Great Vibes', cursive;
+      font-size:clamp(2.4rem,6vw,3.6rem);
+      color:var(--blue);
+      text-shadow:1px 2px 10px rgba(30,136,229,.2);
+      margin-bottom:22px; line-height:1.1;
+    }
+
+    /* Body */
+    .letter-body { color:var(--ink); font-size:clamp(.97rem,2.4vw,1.12rem); line-height:2; font-weight:300; }
+    .letter-body p { margin-bottom:18px; }
+    .letter-body p:last-child { margin-bottom:0; }
+    .letter-body strong { font-weight:400; color:var(--blue-mid); font-style:italic; }
+
+    /* Callout */
+    .callout {
+      background:linear-gradient(135deg,rgba(227,240,253,.6),rgba(248,251,255,.8));
+      border-left:3px solid var(--blue-sky);
+      border-radius:0 8px 8px 0;
+      padding:15px 18px; margin:20px 0;
+      font-style:italic; color:var(--ink-light);
+      font-size:clamp(.93rem,2.2vw,1.05rem); line-height:1.9;
+    }
+
+    /* Cake wishes row */
+    .wishes-row {
+      display:flex; flex-wrap:wrap; gap:10px;
+      margin:22px 0;
+      justify-content:center;
+    }
+    .wish-chip {
+      background:linear-gradient(135deg,rgba(30,136,229,.1),rgba(144,202,249,.15));
+      border:1px solid rgba(30,136,229,.2);
+      border-radius:20px;
+      padding:6px 16px;
+      font-size:clamp(.82rem,2vw,.95rem);
+      color:var(--blue);
+      font-style:italic;
+    }
+
+    .ornament { text-align:center; color:var(--blue-light); font-size:1rem; margin:20px 0; letter-spacing:.4em; opacity:.65; }
+
+    /* Closing */
+    .letter-closing { margin-top:26px; padding-top:16px; border-top:1px solid rgba(30,136,229,.12); }
+    .letter-closing-text { color:var(--ink-light); font-size:clamp(.9rem,2vw,1rem); font-style:italic; margin-bottom:10px; }
+    .letter-signature { font-family:'Great Vibes',cursive; font-size:clamp(2.2rem,5.5vw,3rem); color:var(--blue); line-height:1.1; text-shadow:1px 2px 8px rgba(30,136,229,.15); }
+    .letter-ps { margin-top:14px; font-size:clamp(.8rem,1.9vw,.9rem); color:var(--blue-light); font-style:italic; }
+    .letter-flowers { margin-top:12px; font-size:1.4rem; letter-spacing:.18em; }
+
+    .close-btn {
+      display:block; margin:26px auto 0;
+      background:linear-gradient(135deg,var(--blue-mid),var(--blue-deep));
+      color:white; border:none;
+      padding:11px 30px; border-radius:50px;
+      font-family:'Cormorant Garamond',serif;
+      font-size:1rem; letter-spacing:.1em;
+      cursor:pointer;
+      box-shadow:0 6px 18px var(--shadow);
+      transition:transform .2s, box-shadow .2s;
+    }
+    .close-btn:hover { transform:translateY(-2px); box-shadow:0 10px 26px var(--shadow); }
+
+    /* Music button */
+    .music-btn {
+      position:fixed; bottom:22px; right:22px; z-index:100;
+      width:52px; height:52px; border-radius:50%; border:none;
+      background:linear-gradient(135deg,var(--blue-mid),var(--blue-deep));
+      color:white; font-size:1.4rem; cursor:pointer;
+      box-shadow:0 6px 20px var(--shadow);
+      display:flex; align-items:center; justify-content:center;
+      transition:transform .2s;
+      animation:musicPop .7s 1s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    @keyframes musicPop { from{transform:scale(0);opacity:0;} to{transform:scale(1);opacity:1;} }
+    .music-btn:hover { transform:scale(1.1); }
+    .music-btn.playing { box-shadow:0 0 0 7px rgba(30,136,229,.18),0 6px 20px var(--shadow); }
+
+    /* Burst */
+    .burst-container { position:fixed; inset:0; pointer-events:none; z-index:50; display:none; }
+    .burst-particle { position:absolute; font-size:1.3rem; animation:burstAnim 1.3s ease-out forwards; }
+    @keyframes burstAnim {
+      0%{transform:translate(0,0) scale(0);opacity:1;}
+      55%{opacity:1;}
+      100%{transform:translate(var(--tx),var(--ty)) scale(1.1);opacity:0;}
+    }
+
+    /* Music notice */
+    .music-notice {
+      position:fixed; top:18px; left:50%; transform:translateX(-50%);
+      background:rgba(248,251,255,.96);
+      border:1px solid rgba(30,136,229,.25); border-radius:30px;
+      padding:9px 22px; font-size:.82rem; color:var(--blue);
+      letter-spacing:.04em; box-shadow:0 4px 16px var(--shadow);
+      z-index:200; display:none; white-space:nowrap;
+    }
+
+    footer {
+      position:relative; z-index:2; margin-top:40px;
+      color:var(--blue-light); font-size:.78rem;
+      letter-spacing:.15em; opacity:.65;
+      text-align:center; font-style:italic;
+    }
+
+    @media (max-width:480px) {
+      .letter-inner { padding:28px 20px 26px 34px; }
+      .letter::after { left:28px; }
+      .letter-header { flex-direction:column; gap:4px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="confetti-container" id="confetti"></div>
+<div class="burst-container" id="burstEl"></div>
+<div class="music-notice" id="musicNotice">🎵 Toca el botón para activar la música</div>
+
+<!-- TITLE -->
+<div class="title-wrap">
+  <h1>¡Feliz Cumpleaños!</h1>
+  <div class="title-name">Yajaira</div>
+  <p class="title-sub">✦ Que este día sea tan especial como tú ✦</p>
+</div>
+
+<div class="balloons">🎈 🎂 🎉 🎊 🎈</div>
+
+<!-- ENVELOPE -->
+<div class="scene">
+  <div class="envelope-wrap" id="envelopeWrap">
+
+    <svg class="envelope-svg" viewBox="0 0 560 340" xmlns="http://www.w3.org/2000/svg">
+      <!-- Shadow -->
+      <ellipse cx="280" cy="332" rx="230" ry="10" fill="rgba(20,70,160,.15)"/>
+
+      <!-- Envelope body — blue -->
+      <rect x="14" y="28" width="532" height="298" rx="10" ry="10" fill="#2979c8"/>
+      <rect x="14" y="28" width="532" height="298" rx="10" ry="10" fill="url(#grainB)" opacity=".12"/>
+
+      <!-- Side folds -->
+      <polygon points="14,28 14,326 196,178" fill="#1e6ab8"/>
+      <polygon points="546,28 546,326 364,178" fill="#1a5fa8"/>
+
+      <!-- Bottom fold -->
+      <polygon points="14,326 546,326 280,178" fill="#155898"/>
+
+      <!-- Top flap -->
+      <polygon points="14,28 546,28 280,178" fill="#4d9de0"/>
+
+      <!-- Flap diagonal lines -->
+      <line x1="14" y1="28" x2="280" y2="178" stroke="#0d2a5e" stroke-width="2.2" stroke-linecap="round" opacity=".5"/>
+      <line x1="546" y1="28" x2="280" y2="178" stroke="#0d2a5e" stroke-width="2.2" stroke-linecap="round" opacity=".5"/>
+
+      <!-- Dashed border — gold/yellow dashes (like reference image) -->
+      <!-- Top -->
+      <line x1="38"  y1="46" x2="58"  y2="46" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="72"  y1="46" x2="92"  y2="46" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="106" y1="46" x2="126" y2="46" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="140" y1="46" x2="160" y2="46" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="174" y1="46" x2="194" y2="46" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="208" y1="46" x2="228" y2="46" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="242" y1="46" x2="262" y2="46" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="276" y1="46" x2="296" y2="46" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="310" y1="46" x2="330" y2="46" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="344" y1="46" x2="364" y2="46" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="378" y1="46" x2="398" y2="46" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="412" y1="46" x2="432" y2="46" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="446" y1="46" x2="466" y2="46" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="480" y1="46" x2="500" y2="46" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="514" y1="46" x2="528" y2="46" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <!-- Bottom -->
+      <line x1="38"  y1="308" x2="58"  y2="308" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="72"  y1="308" x2="92"  y2="308" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="106" y1="308" x2="126" y2="308" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="140" y1="308" x2="160" y2="308" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="174" y1="308" x2="194" y2="308" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="208" y1="308" x2="228" y2="308" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="242" y1="308" x2="262" y2="308" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="276" y1="308" x2="296" y2="308" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="310" y1="308" x2="330" y2="308" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="344" y1="308" x2="364" y2="308" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="378" y1="308" x2="398" y2="308" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="412" y1="308" x2="432" y2="308" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="446" y1="308" x2="466" y2="308" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="480" y1="308" x2="500" y2="308" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="514" y1="308" x2="528" y2="308" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <!-- Left -->
+      <line x1="32" y1="52"  x2="32" y2="70"  stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="32" y1="84"  x2="32" y2="102" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="32" y1="116" x2="32" y2="134" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="32" y1="148" x2="32" y2="166" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="32" y1="180" x2="32" y2="198" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="32" y1="212" x2="32" y2="230" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="32" y1="244" x2="32" y2="262" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="32" y1="276" x2="32" y2="294" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <!-- Right -->
+      <line x1="528" y1="52"  x2="528" y2="70"  stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="528" y1="84"  x2="528" y2="102" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="528" y1="116" x2="528" y2="134" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="528" y1="148" x2="528" y2="166" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="528" y1="180" x2="528" y2="198" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="528" y1="212" x2="528" y2="230" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="528" y1="244" x2="528" y2="262" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="528" y1="276" x2="528" y2="294" stroke="#f5c842" stroke-width="3.5" stroke-linecap="round"/>
+
+      <!-- Star seal instead of heart (birthday vibe) -->
+      <!-- 5-pointed star centered at 280,178 -->
+      <polygon points="280,132 291,164 326,164 299,183 309,216 280,197 251,216 261,183 234,164 269,164"
+               fill="#f5c842" filter="url(#starShadow)"/>
+      <!-- Star shine -->
+      <ellipse cx="270" cy="150" rx="6" ry="4" fill="rgba(255,255,255,.35)" transform="rotate(-25,270,150)"/>
+
+      <!-- Birthday cake icon area — small candles above star -->
+      <text x="280" y="122" text-anchor="middle" font-size="20">🎂</text>
+
+      <!-- "Para Yajaira" text on envelope -->
+      <text x="280" y="264" text-anchor="middle"
+            font-family="Georgia, serif" font-size="15" font-style="italic"
+            fill="rgba(255,255,255,.75)" letter-spacing="1">Para Yajaira 🎉</text>
+
+      <defs>
+        <filter id="starShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="2" dy="4" stdDeviation="5" flood-color="rgba(20,60,160,.3)"/>
+        </filter>
+        <filter id="grainB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+          <feColorMatrix type="saturate" values="0"/>
+        </filter>
+      </defs>
+    </svg>
+
+    <div class="tap-hint" id="tapHint">🎁 Toca para abrir tu carta de cumpleaños</div>
+  </div>
+
+  <!-- LETTER -->
+  <div class="letter" id="letter">
+    <div class="letter-watermark">🎂</div>
+    <div class="letter-inner">
+
+      <div class="letter-header">
+        <div class="letter-from">
+          Una carta cargada de buenos deseos,<br>
+          especialmente para ti 🎈
+        </div>
+        <div class="letter-date">¡Hoy es tu día!</div>
+      </div>
+
+      <div class="salutation">¡Feliz Cumpleaños, Yajaira!</div>
+
+      <div class="letter-body">
+        <p>
+          Hoy el universo entero celebra que naciste. Y nosotros con él.
+          Porque el mundo es <strong>definitivamente mejor contigo en él</strong>,
+          y este día es la prueba perfecta para recordártelo.
+        </p>
+        <p>
+          Que cada vela que soples esta noche lleve consigo un deseo cumplido.
+          Que el año que comienza hoy esté lleno de cosas que te hagan reír hasta que te duela el estómago,
+          de momentos que quieras guardar para siempre, y de personas que te valoren
+          exactamente como mereces.
+        </p>
+
+        <div class="ornament">✦ 🎂 ✦</div>
+
+        <div class="callout">
+          🎉 En tu cumpleaños queremos que sepas que eres alguien especial —
+          no solo hoy, sino todos los días. Tu presencia ilumina los espacios
+          y tu energía contagia a quienes te rodean.
+          <strong>Que este año nuevo de tu vida traiga todo lo que tu corazón desea.</strong>
+        </div>
+
+        <p>
+          Mereces torta, confeti, regalos, abrazos largos y una canción de cumpleaños
+          cantada a todo pulmón. Pero sobre todo, mereces saber que eres querida
+          y que hay personas que se alegran genuinamente de tenerte cerca. 🎊
+        </p>
+        <p>
+          ¡Que lo disfrutes muchísimo, Yajaira! Este día es tuyo. 🌟
+        </p>
+
+      
+      </div>
+
+      <div class="letter-closing">
+        <p class="letter-closing-text">Con todo el cariño del mundo,</p>
+        <div class="letter-signature">¡Feliz Cumple! 🎂🎈</div>
+        <p class="letter-ps">P.D. — Que los próximos 365 días sean extraordinarios.</p>
+        <div class="letter-flowers">🎈 🎉 🎊 ⭐ 🎁</div>
+      </div>
+
+      <button class="close-btn" id="closeBtn">✉️ Cerrar carta</button>
+    </div>
+  </div>
+
+</div>
+
+<footer> </footer>
+
+<!-- ════════════════════════════════════════════
+     🎵 MÚSICA DE FONDO
+     ════════════════════════════════════════════
+     1. Copia tu archivo de música a la MISMA
+        carpeta donde está este archivo HTML.
+
+     2. Reemplaza  TU_MUSICA_AQUI.mp3  con el
+        nombre exacto de tu archivo, por ejemplo:
+
+          src="cumpleanos.mp3"
+          src="happy-birthday.mp3"
+          src="audio/cancion.mp3"
+
+     Formatos soportados: .mp3  .ogg  .wav
+
+     La música se intenta reproducir automáticamente.
+     Si el navegador lo bloquea (Chrome / Safari),
+     el botón 🎵 abajo a la derecha la activará.
+════════════════════════════════════════════ -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+  <!-- Respaldo OGG (opcional): -->
+  <!-- <source src="TU_MUSICA_AQUI.ogg" type="audio/ogg"> -->
+</audio>
+<button class="music-btn" id="musicBtn" title="Activar / pausar música">🎵</button>
+
+<script>
+/* ── CONFETTI (blue + gold + white) ── */
+const confettiShapes = ['⭐','✦','·','▪','▸'];
+const confettiColors = ['#90caf9','#42a5f5','#1e88e5','#f5c842','#ffffff','#bbdefb','#ffd54f','#64b5f6'];
+const confettiCont = document.getElementById('confetti');
+for (let i = 0; i < 38; i++) {
+  const c = document.createElement('div');
+  c.className = 'confetti-piece';
+  const isShape = Math.random() > 0.5;
+  if (isShape) {
+    c.textContent = confettiShapes[Math.floor(Math.random()*confettiShapes.length)];
+    c.style.cssText = `
+      left:${Math.random()*100}%;
+      color:${confettiColors[Math.floor(Math.random()*confettiColors.length)]};
+      font-size:${10+Math.random()*14}px;
+      animation-duration:${5+Math.random()*8}s;
+      animation-delay:-${Math.random()*11}s;
+      opacity:${0.5+Math.random()*0.4};
+    `;
+  } else {
+    c.style.cssText = `
+      left:${Math.random()*100}%;
+      background:${confettiColors[Math.floor(Math.random()*confettiColors.length)]};
+      width:${6+Math.random()*10}px;
+      height:${8+Math.random()*12}px;
+      border-radius:${Math.random()>0.5?'50%':'2px'};
+      animation-duration:${5+Math.random()*8}s;
+      animation-delay:-${Math.random()*11}s;
+      opacity:${0.5+Math.random()*0.4};
+    `;
+  }
+  confettiCont.appendChild(c);
+}
+
+/* ── BURST ── */
+const burstEl = document.getElementById('burstEl');
+function doBurst(cx, cy) {
+  burstEl.style.display = 'block';
+  burstEl.innerHTML = '';
+  const emojis = ['🎉','🎊','⭐','🎈','✨','🎁','💙','🌟'];
+  for (let i = 0; i < 26; i++) {
+    const h = document.createElement('span');
+    h.className = 'burst-particle';
+    h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    const angle = Math.random()*360, dist = 80+Math.random()*150;
+    h.style.cssText = `left:${cx}px;top:${cy}px;--tx:${Math.cos(angle*Math.PI/180)*dist}px;--ty:${Math.sin(angle*Math.PI/180)*dist}px;animation-delay:${Math.random()*.3}s;`;
+    burstEl.appendChild(h);
+  }
+  setTimeout(() => { burstEl.style.display = 'none'; }, 1700);
+}
+
+/* ── ENVELOPE OPEN/CLOSE ── */
+const envelopeWrap = document.getElementById('envelopeWrap');
+const letter       = document.getElementById('letter');
+const closeBtn     = document.getElementById('closeBtn');
+const tapHint      = document.getElementById('tapHint');
+
+envelopeWrap.addEventListener('click', (e) => {
+  if (envelopeWrap.classList.contains('opened')) return;
+  envelopeWrap.classList.add('opened');
+  tapHint.style.display = 'none';
+  doBurst(e.clientX, e.clientY);
+  setTimeout(() => {
+    envelopeWrap.style.display = 'none';
+    letter.style.display = 'block';
+  }, 400);
+});
+
+closeBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  letter.style.display = 'none';
+  envelopeWrap.style.display = 'block';
+  envelopeWrap.classList.remove('opened');
+  tapHint.style.display = 'block';
+});
+
+/* ── MUSIC ── */
+const music       = document.getElementById('bgMusic');
+const musicBtn    = document.getElementById('musicBtn');
+const musicNotice = document.getElementById('musicNotice');
+let playing = false;
+
+function startMusic() {
+  music.volume = 0.4;
+  music.play().then(() => {
+    playing = true;
+    musicBtn.textContent = '🔊';
+    musicBtn.classList.add('playing');
+  }).catch(() => {
+    musicNotice.style.display = 'block';
+    setTimeout(() => { musicNotice.style.display = 'none'; }, 4500);
+  });
+}
+
+window.addEventListener('load', () => { startMusic(); });
+document.addEventListener('click', () => { if (!playing) startMusic(); }, { once: true });
+
+musicBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (playing) {
+    music.pause(); playing = false;
+    musicBtn.textContent = '🎵';
+    musicBtn.classList.remove('playing');
+  } else {
+    startMusic();
+  }
+});
+</script>
+</body>
+</html>
